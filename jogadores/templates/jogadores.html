@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'jogadores/css/jogadores.css' %}">
+{% endblock %}
+
+{% block dashboard %}
+<div class="container">
+    <div class="row">
+        <div class="col-md card-dashboard">
+            <p class="text-card">Adicionar Jogadores</p>
+        </div>
+    </div>
+    <br>
+    <div class="adicionar-cliente">
+        <form action="{% url 'jogadores' %}" method="POST">{% csrf_token %}
+            <div class="row">
+                <div class="col-md">
+                    <p>Nome:</p>
+                    <input type="text" class="form-control" placeholder="Nome" name="nome">
+                </div>
+                <div class="col-md">
+                    <p>Classe:</p>
+                    <select class="form-control" name="classe">
+                        {% for classe in classes %}
+                            <option value="{{ classe.id }}">{{ classe.nome }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <br>
+            <p>Raça:</p>
+            <select class="form-control" name="raça">
+                {% for raca in racas %}
+                    <option value="{{ raca.id }}">{{ raca.nome }}</option>
+                {% endfor %}
+            </select>
+            <br>
+            <hr style="background-color:gray;">
+            <br>
+            <input type="submit" value="Criar" class="btn-principal">
+        </form>
+    </div>
+</div>
+<script src="{% static 'jogadores/js/jogadores.js' %}"></script>
+{% endblock %}
